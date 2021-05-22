@@ -5,33 +5,63 @@ import cs350s21project.controller.command.A_Command;
 
 public class CommandInterpreter {
 
-	// TODO Handle multiple commands separated by ';'
-	// TODO ignore preceded by //
+	// TODO ignore preceded by //, ask about what comments look like
 	public void evaluate(String command) {
 		
 		// Get our command manager
 		CommandManagers managers = CommandManagers.getInstance();
 		
-		// switch to parse string
-		String[] cmdArr = command.split(" ", 0);
-		A_Command<?> builtCommand = null;
+		// Split commands by semicolon to handle multiple commands
+		String[] commands = command.split(";", 0);
 		
-		// Check first word in command
-		switch(cmdArr[0]) {
-		case "define":
-		case "create":
-		case "delete":
-		case "set": 
-		case "@load": // Handle spaces in file name
-		case "@pause":
-		case "@resume":
-		case "@set":
-		case "@wait":
-		case "@force":
-		case "@exit":
-		default: break;
+		for (String commandString : commands) {
+			
+			// Create an array of words in the command
+			String[] cmdArr = commandString.split(" ", 0);
+			A_Command<?> builtCommand = null;
+			
+			try {
+				// Check first word in command
+				switch(cmdArr[0]) {
+				case "define":{
+					switch(cmdArr[1]) {
+					case "ship": break;
+					case "munition": builtCommand = CommandMunitionFactory.getCommandMunition(managers, command); break;
+					case "sensor": break;
+					default: throw new RuntimeException("Invalid command input!");
+					}
+					break;
+				}
+				case "create":{
+					switch(cmdArr[1]) {
+					case "window": break;
+					case "actor": break;
+					default: throw new RuntimeException("Invalid command input!");
+					}
+					break;
+				}
+				case "delete":{
+					switch(cmdArr[1]) {
+					case "window": break;
+					default: throw new RuntimeException("Invalid command input!");
+					}
+					break;
+				}
+				case "set": break;
+				case "@load": break; // Handle spaces in file name
+				case "@pause": break;
+				case "@resume": break;
+				case "@set": break;
+				case "@wait": break;
+				case "@force": break;
+				case "@exit": break;
+				default: throw new RuntimeException("Invalid command input!");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			managers.schedule(builtCommand);
 		}
-		
-		managers.schedule(builtCommand);
 	}
 }
