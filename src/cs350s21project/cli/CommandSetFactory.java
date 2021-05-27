@@ -18,6 +18,7 @@ public class CommandSetFactory {
 		
 		try {
 			if (cmdArr[0].equals("set")) {
+				// Check third word for Set type
 				switch(cmdArr[2]) {
 				case "load":{
 					AgentID idActor = new AgentID(cmdArr[1]);

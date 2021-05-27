@@ -51,8 +51,7 @@ public class CommandInterpreter {
 						break;
 					}
 					case "set": {
-						// builtCommand = CommandSetFactory.getCommandSet(managers, command); break;
-						break;
+						builtCommand = CommandSetFactory.getSetCommand(managers, command); break;
 					}
 					default: throw new RuntimeException("Invalid command input!");
 					}
