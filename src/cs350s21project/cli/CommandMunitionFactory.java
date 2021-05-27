@@ -13,38 +13,43 @@ public class CommandMunitionFactory {
 		String[] cmdArr = command.split(" ", 0);
 		A_CommandMunition<?> cmdMunition = null;
 		
-		if (cmdArr[0].equals("define") && cmdArr[1].equals("munition")) {
-			AgentID id = new AgentID(cmdArr[3]);
-			switch (cmdArr[2]) {
-			case "bomb": {
-				cmdMunition = new CommandMunitionDefineBomb(managers, command, id); 
-				break;
+		try {
+			if (cmdArr[0].equals("define") && cmdArr[1].equals("munition")) {
+				AgentID id = new AgentID(cmdArr[3]);
+				switch (cmdArr[2]) {
+				case "bomb": {
+					cmdMunition = new CommandMunitionDefineBomb(managers, command, id); 
+					break;
+				}
+				case "shell": {
+					cmdMunition = new CommandMunitionDefineShell(managers, command, id); 
+					break;
+				}
+				case "depth_charge": {
+					AgentID fuzeId = new AgentID(cmdArr[6]);
+					cmdMunition = new CommandMunitionDefineDepthCharge(managers, command, id, fuzeId); 
+					break;
+				}
+				case "torpedo": {
+					AgentID sensorId = new AgentID(cmdArr[6]);
+					AgentID fuzeId = new AgentID(cmdArr[8]);
+					Time armingTime = new Time(Double.parseDouble(cmdArr[11]));
+					cmdMunition = new CommandMunitionDefineTorpedo(managers, command, id, sensorId, fuzeId, armingTime); 
+					break;
+				}
+				case "missile": {
+					AgentID sensorId = new AgentID(cmdArr[6]);
+					AgentID fuzeId = new AgentID(cmdArr[8]);
+					DistanceNauticalMiles armingDist = new DistanceNauticalMiles(Double.parseDouble(cmdArr[11]));
+					cmdMunition = new CommandMunitionDefineMissile(managers, command, id, sensorId, fuzeId, armingDist); 
+					break;
+				}
+				default: throw new RuntimeException("Invalid Command");
+				}
 			}
-			case "shell": {
-				cmdMunition = new CommandMunitionDefineShell(managers, command, id); 
-				break;
-			}
-			case "depth_charge": {
-				AgentID fuzeId = new AgentID(cmdArr[6]);
-				cmdMunition = new CommandMunitionDefineDepthCharge(managers, command, id, fuzeId); 
-				break;
-			}
-			case "torpedo": {
-				AgentID sensorId = new AgentID(cmdArr[6]);
-				AgentID fuzeId = new AgentID(cmdArr[8]);
-				Time armingTime = new Time(Double.parseDouble(cmdArr[11]));
-				cmdMunition = new CommandMunitionDefineTorpedo(managers, command, id, sensorId, fuzeId, armingTime); 
-				break;
-			}
-			case "missile": {
-				AgentID sensorId = new AgentID(cmdArr[6]);
-				AgentID fuzeId = new AgentID(cmdArr[8]);
-				DistanceNauticalMiles armingDist = new DistanceNauticalMiles(Double.parseDouble(cmdArr[11]));
-				cmdMunition = new CommandMunitionDefineMissile(managers, command, id, sensorId, fuzeId, armingDist); 
-				break;
-			}
-			default: break;
-			}
+		
+		} catch (Exception e){
+			throw new RuntimeException("Invalid Command");
 		}
 		
 		return cmdMunition;
