@@ -22,7 +22,7 @@ public class CommandInterpreter {
 			
 			try {
 				if (cmdArr[0].charAt(0) == '@') {
-					// builtCommand = miscFactory.getCommandMisc(managers, command); break;
+					// builtCommand = MiscFactory.getCommandMisc(managers, command); break;
 				} else {
 					// Check first word in command
 					switch(cmdArr[0]) {
