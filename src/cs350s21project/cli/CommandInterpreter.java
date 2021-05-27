@@ -21,41 +21,41 @@ public class CommandInterpreter {
 			A_Command<?> builtCommand = null;
 			
 			try {
-				// Check first word in command
-				switch(cmdArr[0]) {
-				case "define":{
-					switch(cmdArr[1]) {
-					case "ship": break;
-					case "munition": builtCommand = CommandMunitionFactory.getCommandMunition(managers, command); break;
-					case "sensor": break;
+				if (cmdArr[0].charAt(0) == '@') {
+					// builtCommand = miscFactory.getCommandMisc(managers, command); break;
+				} else {
+					// Check first word in command
+					switch(cmdArr[0]) {
+					case "define":{
+						switch(cmdArr[1]) {
+						case "ship": break;
+						case "munition": builtCommand = CommandMunitionFactory.getCommandMunition(managers, command); break;
+						case "sensor": break;
+						default: throw new RuntimeException("Invalid command input!");
+						}
+						break;
+					}
+					case "create":{
+						switch(cmdArr[1]) {
+						case "window": break;
+						case "actor": break;
+						default: throw new RuntimeException("Invalid command input!");
+						}
+						break;
+					}
+					case "delete":{
+						switch(cmdArr[1]) {
+						case "window": break;
+						default: throw new RuntimeException("Invalid command input!");
+						}
+						break;
+					}
+					case "set": {
+						// builtCommand = CommandSetFactory.getCommandSet(managers, command); break;
+						break;
+					}
 					default: throw new RuntimeException("Invalid command input!");
 					}
-					break;
-				}
-				case "create":{
-					switch(cmdArr[1]) {
-					case "window": break;
-					case "actor": break;
-					default: throw new RuntimeException("Invalid command input!");
-					}
-					break;
-				}
-				case "delete":{
-					switch(cmdArr[1]) {
-					case "window": break;
-					default: throw new RuntimeException("Invalid command input!");
-					}
-					break;
-				}
-				case "set": break;
-				case "@load": break; // Handle spaces in file name
-				case "@pause": break;
-				case "@resume": break;
-				case "@set": break;
-				case "@wait": break;
-				case "@force": break;
-				case "@exit": break;
-				default: throw new RuntimeException("Invalid command input!");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
