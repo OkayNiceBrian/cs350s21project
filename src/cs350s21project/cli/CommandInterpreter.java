@@ -58,7 +58,7 @@ public class CommandInterpreter {
 					}
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				throw new RuntimeException("Invalid command");
 			}
 			
 			managers.schedule(builtCommand);
