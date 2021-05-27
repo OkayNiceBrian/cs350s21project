@@ -3,6 +3,11 @@ package cs350s21project.cli;
 import cs350s21project.controller.CommandManagers;
 import cs350s21project.controller.command.actor.*;
 import cs350s21project.datatype.AgentID;
+import cs350s21project.datatype.Altitude;
+import cs350s21project.datatype.AttitudePitch;
+import cs350s21project.datatype.AttitudeYaw;
+import cs350s21project.datatype.Course;
+import cs350s21project.datatype.Groundspeed;
 
 public class CommandSetFactory {
 
@@ -11,21 +16,51 @@ public class CommandSetFactory {
 		String[] cmdArr = command.split(" ", 0);
 		A_CommandActor<?> cmdSet = null;
 		
-		if (cmdArr[0].equals("set")) {
-			switch(cmdArr[2] + " " + cmdArr[3]) {
-			case "load munition":{
-				AgentID idActor = new AgentID(cmdArr[1]);
-				AgentID idMunition = new AgentID(cmdArr[4]);
-				cmdSet = new CommandActorLoadMunition(managers, command, idActor, idMunition);
-				break;
+		try {
+			if (cmdArr[0].equals("set")) {
+				switch(cmdArr[2]) {
+				case "load":{
+					AgentID idActor = new AgentID(cmdArr[1]);
+					AgentID idMunition = new AgentID(cmdArr[4]);
+					cmdSet = new CommandActorLoadMunition(managers, command, idActor, idMunition);
+					break;
+				}
+				case "deploy":{
+					AgentID idActor = new AgentID(cmdArr[1]);
+					AgentID idMunition = new AgentID(cmdArr[4]);
+					if (cmdArr.length > 5) {
+						AttitudeYaw az = new AttitudeYaw(Integer.parseInt(cmdArr[7]));
+						AttitudePitch el = new AttitudePitch(Integer.parseInt(cmdArr[9]));
+						cmdSet = new CommandActorDeployMunitionShell(managers, command, idActor, idMunition, az, el);
+					} else {
+						cmdSet = new CommandActorDeployMunition(managers, command, idActor, idMunition);
+					}
+					break;
+				}
+				case "course":{
+					AgentID idActor = new AgentID(cmdArr[1]);
+					Course course = new Course(Integer.parseInt(cmdArr[3]));
+					cmdSet = new CommandActorSetCourse(managers, command, idActor, course);
+					break;
+				}
+				case "speed":{
+					AgentID idActor = new AgentID(cmdArr[1]);
+					Groundspeed speed = new Groundspeed(Integer.parseInt(cmdArr[3]));
+					cmdSet = new CommandActorSetSpeed(managers, command, idActor, speed);
+					break;
+				}
+				case "altitude": case "depth":{
+					AgentID idActor = new AgentID(cmdArr[1]);
+					Altitude alt = new Altitude(Integer.parseInt(cmdArr[3]));
+					cmdSet = new CommandActorSetAltitudeDepth(managers, command, idActor, alt);
+					break;
+				}
+				default: throw new RuntimeException("Invalid Command");
+				}
 			}
-			case "deploy munition":{
-				break;
-			}
-			default: break;
-			}
+		} catch (Exception e){
+			throw new RuntimeException("Invalid Command");
 		}
-		
 		return cmdSet;
 	}
 }
