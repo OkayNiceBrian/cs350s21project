@@ -16,6 +16,13 @@ public class CommandInterpreter {
 		
 		for (String commandString : commands) {
 			
+			// Handle comments
+			for (int i = 0; i < commandString.length(); i++) {
+				if (commandString.charAt(i) == '/' && i < commandString.length() - 1 && commandString.charAt(i + 1) == '/') {
+					
+				}
+			}
+			
 			// Create an array of words in the command
 			String[] cmdArr = commandString.split(" ", 0);
 			A_Command<?> builtCommand = null;
