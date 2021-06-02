@@ -5,7 +5,6 @@ import cs350s21project.controller.command.A_Command;
 
 public class CommandInterpreter {
 
-	// TODO ignore preceded by //, ask about what comments look like
 	public void evaluate(String command) {
 		
 		// Get our command manager
@@ -19,7 +18,7 @@ public class CommandInterpreter {
 			// Handle comments
 			for (int i = 0; i < commandString.length(); i++) {
 				if (commandString.charAt(i) == '/' && i < commandString.length() - 1 && commandString.charAt(i + 1) == '/') {
-					
+					commandString = commandString.substring(0, i) + commandString.substring(commandString.lastIndexOf("\n"), commandString.length() - 1);
 				}
 			}
 			
