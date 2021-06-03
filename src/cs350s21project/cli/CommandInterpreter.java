@@ -14,6 +14,7 @@ public class CommandInterpreter {
 		String[] commands = command.split(";", 0);
 		
 		for (String commandString : commands) {
+			commandString = commandString.trim();
 			
 			// Handle comments
 			for (int i = 0; i < commandString.length(); i++) {
@@ -28,14 +29,14 @@ public class CommandInterpreter {
 			
 			try {
 				if (cmdArr[0].charAt(0) == '@') {
-					builtCommand = MiscCmdFactory.buildMiscCmd(managers, command); break;
+					builtCommand = MiscCmdFactory.buildMiscCmd(managers, commandString); break;
 				} else {
 					// Check first word in command
 					switch(cmdArr[0]) {
 					case "define":{
 						switch(cmdArr[1]) {
 						case "ship": break;
-						case "munition": builtCommand = CommandMunitionFactory.getCommandMunition(managers, command); break;
+						case "munition": builtCommand = CommandMunitionFactory.getCommandMunition(managers, commandString); break;
 						case "sensor": break;
 						default: throw new RuntimeException("Invalid command input!");
 						}
@@ -43,7 +44,7 @@ public class CommandInterpreter {
 					}
 					case "create":{
 						switch(cmdArr[1]) {
-						case "window": builtCommand = MiscCmdFactory.buildMiscCmd(managers, command); break;
+						case "window": builtCommand = MiscCmdFactory.buildMiscCmd(managers, commandString); break;
 						case "actor": break;
 						default: throw new RuntimeException("Invalid command input!");
 						}
@@ -51,13 +52,13 @@ public class CommandInterpreter {
 					}
 					case "delete":{
 						switch(cmdArr[1]) {
-						case "window": builtCommand = MiscCmdFactory.buildMiscCmd(managers, command); break;
+						case "window": builtCommand = MiscCmdFactory.buildMiscCmd(managers, commandString); break;
 						default: throw new RuntimeException("Invalid command input!");
 						}
 						break;
 					}
 					case "set": {
-						builtCommand = CommandSetFactory.getSetCommand(managers, command); break;
+						builtCommand = CommandSetFactory.getSetCommand(managers, commandString); break;
 					}
 					default: throw new RuntimeException("Invalid command input!");
 					}
@@ -66,7 +67,8 @@ public class CommandInterpreter {
 				throw new RuntimeException("Invalid command");
 			}
 			
-			managers.schedule(builtCommand);
+			System.out.println(builtCommand.toString());
+			// managers.schedule(builtCommand);
 		}
 	}
 }
