@@ -64,9 +64,9 @@ public class MiscCmdFactory {
 					int lon2min = Integer.valueOf(lon2Str[1]);
 					int lon2sec = Integer.valueOf(lon2Str[2]);
 				String[] lon3Str = command[11].split("'/*");//lon3
-				int lon3hr = Integer.valueOf(lon3Str[0]); 
-				int lon3min = Integer.valueOf(lon3Str[1]);
-				int lon3sec = Integer.valueOf(lon3Str[2]);
+					int lon3hr = Integer.valueOf(lon3Str[0]); 
+					int lon3min = Integer.valueOf(lon3Str[1]);
+					int lon3sec = Integer.valueOf(lon3Str[2]);
 				Latitude lat1 = new Latitude(lat1hr, lat1min ,lat1sec);//command[6]
 				Latitude lat2 = new Latitude(lat2hr, lat2min ,lat2sec);//command[7]
 				Latitude lat3 = new Latitude(lat3hr, lat3min ,lat3sec);//command[8]
