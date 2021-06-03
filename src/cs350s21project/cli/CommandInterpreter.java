@@ -28,7 +28,7 @@ public class CommandInterpreter {
 			
 			try {
 				if (cmdArr[0].charAt(0) == '@') {
-					// builtCommand = MiscFactory.getCommandMisc(managers, command); break;
+					builtCommand = MiscCmdFactory.buildMiscCmd(managers, command); break;
 				} else {
 					// Check first word in command
 					switch(cmdArr[0]) {
@@ -43,7 +43,7 @@ public class CommandInterpreter {
 					}
 					case "create":{
 						switch(cmdArr[1]) {
-						case "window": break;
+						case "window": builtCommand = MiscCmdFactory.buildMiscCmd(managers, command); break;
 						case "actor": break;
 						default: throw new RuntimeException("Invalid command input!");
 						}
@@ -51,7 +51,7 @@ public class CommandInterpreter {
 					}
 					case "delete":{
 						switch(cmdArr[1]) {
-						case "window": break;
+						case "window": builtCommand = MiscCmdFactory.buildMiscCmd(managers, command); break;
 						default: throw new RuntimeException("Invalid command input!");
 						}
 						break;
