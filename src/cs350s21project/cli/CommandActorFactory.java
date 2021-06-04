@@ -40,18 +40,17 @@ public class CommandActorFactory {
 	
 					List idMunitions = new List();
 					//runs at least once I believe as we will have a weapon attached to each. 
-					A_CommandMunition<?> cmdMunition = CommandMunitionFactory.getCommandMunition(managers, text);
+					AgentID idMunition = new AgentID(cmdArr[5]);
 						//TODO ? munitions array index 2  name of munition (bomb) and index 3 for munition id  
-					idMunitions.add(String.valueOf(cmdMunition));
+					idMunitions.add(String.valueOf(idMunition));
 					//AgentID id = new AgentID(cmdArr[5]);
 					
 					if (cmdArr.length > 5) {
-						for (int i = 0; i < cmdArr.length; i++) {
+						for (int i = 6; i < cmdArr.length; i++) {
 							
-							cmdMunition = CommandMunitionFactory.getCommandMunition(managers, text);
-	
-							 
-							idMunitions.add(String.valueOf(cmdMunition));
+							idMunition = new AgentID(cmdArr[i]);
+							
+							idMunitions.add(String.valueOf(idMunition));
 	
 						}
 	
