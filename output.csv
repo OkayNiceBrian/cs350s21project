@@ -1,0 +1,1 @@
+command,event_num,event_group,time,agent_type,agent_id,latitude,longitude,altitude,course,speed_horizontal,speed_vertical,deployed,armed,target_id,power_raw,power_attenuated,distance_elapsed,time_elapsed,target_bearing
