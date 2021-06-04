@@ -156,7 +156,7 @@ public class CommandSensorFactory {
 			}
 		}
 	}catch (Exception e) {
-			throw new RuntimeException("Invalid Command");
+			throw new RuntimeException("Invalid Command in sensor");
 			
 	}
 	return cmdSensor;
