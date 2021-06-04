@@ -1,4 +1,4 @@
-package cs350s21project.cli;
+package cs350s21project;
 
 import cs350s21project.controller.CommandManagers;
 import cs350s21project.controller.command.sensor.A_CommandSensor;
@@ -21,7 +21,7 @@ import cs350s21project.datatype.Time;
 
 public class CommandSensorFactory {
 
-	public static A_CommandSensor<?> getCommandSensor(CommandManagers managers, String text, AgentID idSensor){
+	public static A_CommandSensor<?> getCommandSensor(CommandManagers managers, String text){
 		
 		String[] cmdArr = text.split(" ", 0);
 		A_CommandSensor<?> cmdSensor = null;
@@ -41,7 +41,7 @@ public class CommandSensorFactory {
 			//      0      1      2    3  4     5    6   7   8   9      10     11         12           
 				case "radar": {	
 
-					idSensor = new AgentID(cmdArr[3]);
+					AgentID idSensor = new AgentID(cmdArr[3]);
 					 
 					 
 					 
@@ -57,7 +57,7 @@ public class CommandSensorFactory {
 				//2. define sensor thermal id with field of view fov sensitivity sensitivity
 				 //     0      1    2      3    4   5    6  7    8       9         10
 				case "thermal": {	
-					 idSensor = new AgentID(cmdArr[3]);	
+					AgentID idSensor = new AgentID(cmdArr[3]);	
 					FieldOfView fov = new FieldOfView(new AngleNavigational(Integer.parseInt(cmdArr[8]))); 
 				
 					Sensitivity	sensitivity = new Sensitivity(Double.parseDouble(cmdArr[10]));
@@ -71,7 +71,7 @@ public class CommandSensorFactory {
 				//3. define sensor acoustic id with sensitivity sensitivity
 				//       0      1       2    3    4       5          6
 				case "acoustic": {	
-					 idSensor = new AgentID(cmdArr[3]);	
+					AgentID idSensor = new AgentID(cmdArr[3]);	
 							
 					Sensitivity sensitivity = new Sensitivity(Double.parseDouble(cmdArr[6]));
 					
@@ -92,7 +92,7 @@ public class CommandSensorFactory {
 					//       0     1      2      3    4   5     6     7        8           9
 					
 						case "active":{
-							 idSensor = new AgentID(cmdArr[4]);	//sents id to id of sensor: idSensor
+							AgentID idSensor = new AgentID(cmdArr[4]);	//sents id to id of sensor: idSensor
 							Power power = new Power(Double.parseDouble(cmdArr[7]));
 							Sensitivity sensitivity = new Sensitivity(Double.parseDouble(cmdArr[9]));
 							
@@ -105,7 +105,7 @@ public class CommandSensorFactory {
 						
 						case "passive": {	
 							
-							 idSensor = new AgentID(cmdArr[4]);	//sents id to id of sensor: idSensor
+							AgentID idSensor = new AgentID(cmdArr[4]);	//sents id to id of sensor: idSensor
 							Sensitivity sensitivity = new Sensitivity(Double.parseDouble(cmdArr[7]));
 							
 							cmdSensor = new CommandSensorDefineSonarPassive(managers, text, idSensor, sensitivity); 
@@ -119,7 +119,7 @@ public class CommandSensorFactory {
 				//6. define sensor depth id with trigger depth altitude
 				//     0     1       2    3  4       5     6       7
 				case "depth": {	
-				 idSensor = new AgentID(cmdArr[3]);	//sents id to id of sensor: idSensor
+					AgentID idSensor = new AgentID(cmdArr[3]);	//sents id to id of sensor: idSensor
 					
 					Altitude depth = new Altitude(Double.parseDouble(cmdArr[7]));
 					
@@ -131,7 +131,7 @@ public class CommandSensorFactory {
 			//		   0    1          2    3   4    5        6        7
 				
 				case "distance": {	
-					 idSensor = new AgentID(cmdArr[3]);	//sents id to id of sensor: idSensor
+					AgentID idSensor = new AgentID(cmdArr[3]);	//sents id to id of sensor: idSensor
 					
 					DistanceNauticalMiles distance= new DistanceNauticalMiles(Double.parseDouble(cmdArr[7]));
 					
@@ -143,7 +143,7 @@ public class CommandSensorFactory {
 				//      0      1     2   3  4     5       6   7
 				
 				case "time": {	
-					 idSensor = new AgentID(cmdArr[3]);	//sents id to id of sensor: idSensor
+					AgentID idSensor = new AgentID(cmdArr[3]);	//sents id to id of sensor: idSensor
 					
 					Time time = new Time(Double.parseDouble(cmdArr[7]));
 					
