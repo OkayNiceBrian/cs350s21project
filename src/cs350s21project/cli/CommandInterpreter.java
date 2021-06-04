@@ -23,6 +23,8 @@ public class CommandInterpreter {
 				}
 			}
 			
+			commandString = commandString.trim();
+			
 			// Create an array of words in the command
 			String[] cmdArr = commandString.split(" ", 0);
 			A_Command<?> builtCommand = null;
