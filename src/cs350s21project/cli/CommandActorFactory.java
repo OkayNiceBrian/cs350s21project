@@ -1,10 +1,10 @@
-package cs350s21project;
+package cs350s21project.cli;
 
-import java.awt.List;
+
+import java.util.ArrayList;
 
 import cs350s21project.controller.CommandManagers;
 import cs350s21project.controller.command.actor.*;
-import cs350s21project.controller.command.munition.A_CommandMunition;
 import cs350s21project.datatype.AgentID;
 import cs350s21project.datatype.Altitude;
 import cs350s21project.datatype.CoordinateWorld3D;
@@ -18,74 +18,115 @@ import cs350s21project.datatype.Longitude;
 public class CommandActorFactory {
 
 	public static A_CommandActor<?> getActorCommand(CommandManagers managers, String text) {
-
-		String[] cmdArr = text.split(" ");
+		String cmdClean = text.replaceAll("[()]", "");	
+		
+		String[] cmdArr = cmdClean.split(" ");
 		A_CommandActor<?> cmdActor = null;
 
 		try {
+		
 
+			
+			
 			// 1.* define ship id1 with munition[s] (idn+)   munition[s] (idn+) munition[s](// idn+) ...
 		    //         0     1   2    3    4          5       6           7        8          9 ...
-			if (cmdArr[0].equals("define") && cmdArr[1].equals("ship")) {
+								
+									
+			switch(cmdArr[0]) {
+				
 			
-					AgentID idActor = new AgentID(cmdArr[2]);
+			case "define": {
+					if (cmdArr[0].equals("define") && cmdArr[1].equals("ship")) {
 					
-					
-	
-					List idMunitions = new List();
-					//runs at least once I believe as we will have a weapon attached to each. 
-					AgentID idMunition = new AgentID(cmdArr[5]);
-						//TODO ? munitions array index 2  name of munition (bomb) and index 3 for munition id  
-					idMunitions.add(String.valueOf(idMunition));
-					//AgentID id = new AgentID(cmdArr[5]);
-					
-					if (cmdArr.length > 5) {
-						for (int i = 6; i < cmdArr.length; i++) {
+
+									
+						
+						AgentID idActor = new AgentID(cmdArr[2]);
+												
+						AgentID idMunition = new AgentID(cmdArr[5]);
+						ArrayList<AgentID> idMunitions = new ArrayList<AgentID>();
+						//runs at least once I believe as we will have a weapon attached to each. 
+						
+						
+						idMunitions.add(idMunition);
+						
+						
+						if (cmdArr.length > 6) {
+							for (int i = 6; i < cmdArr.length; i++) {
 							
-							idMunition = new AgentID(cmdArr[i]);
-							
-							idMunitions.add(String.valueOf(idMunition));
-	
+								cmdArr[i] = cmdArr[i].replaceAll("[()]", "");
+								
+								idMunition = new AgentID(cmdArr[i]);
+								
+								
+								idMunitions.add(idMunition);
+		
+							}
+		
 						}
-	
+					
+					 cmdActor = new CommandActorDefineShip(managers, text, idActor, (java.util.List<AgentID>) idMunitions);
+					 break;
 					}
+				} //end case: ship
 				
-				cmdActor = new CommandActorDefineShip(managers, text, idActor, (java.util.List<AgentID>) idMunitions);
+				
+				
+			
+			 //end define
+		
+			// create actor *actorFamily* from *actorID* at *position* with azimuth *course* and speed speed
+						// and speed *speed*
+													  //<--(coordinates)----------->//
+			// create actor (Ship) from (Carrier) at (latitude, longitude, altitude ) with azimuth (degree) speed (speed)
+						             // coords split 0 1 2    3 4 5      6
+			//   0     1      2    3    4          5         6                             7    8       9       10     11
 
+			case "create":{			
+		
+			if (cmdArr[0].equals("create") && cmdArr[1].equals("actor")) {
+				
+						AgentID idActor = new AgentID(cmdArr[2]);
+						 AgentID id = new AgentID(cmdArr[4]);
+						
+						
+						String[] coords = cmdArr[6].split("/");  //0 is lat, 1 is lon, 2 is alt   \is escape key before  extra "    splitting on "/
+					
+												
+						String[] coordsLat = coords[0].split("\\*|\'|\""); //split lat into individual pieces,    the       '|' is to indicate alternate split
+						
+						 Latitude latitude = new Latitude(Integer.valueOf(coordsLat[0]), Integer.valueOf(coordsLat[1]), Double.valueOf(coordsLat[2]));
+					
+						 
+						 
+						String[] coordsLon = coords[1].split("\\*|\'|\""); //split long into individual pieces,  the  | is to indicate alternate split
+						Longitude longitude = new Longitude(Integer.valueOf(coordsLon[0]), Integer.valueOf(coordsLon[1]), Double.valueOf(coordsLon[2]));
+					
+						Altitude altitude = new Altitude(Double.valueOf(coords[2]));
+					
+						
+						CoordinateWorld3D position = new CoordinateWorld3D(latitude, longitude, altitude); 
+						
+						
+						Course course = new Course(Double.valueOf(cmdArr[9]));
+						
+						Groundspeed speed = new Groundspeed(Double.valueOf(cmdArr[11]));
+
+						 cmdActor = new CommandActorCreateActor(managers, text, idActor, id, position, course, speed);
+						break;
+				}
+			 //end create
+			
 			}
-
-			// create actor *actorFamily* from *actorID* at *position* with azimuth *course*
-			// and speed *speed*
-										  //<--(coordinates)----------->//
-// create actor (Ship) from (Carrier) at (latitude, longitude, altitude ) with azimuth (degree), and speed (speed)
-			             // coords split 0 1 2    3 4 5      6
-//   0     1      2    3    4      5    6         7             8       9     10      11      12   13    14
-
-			else if (cmdArr[0].equals("create") && cmdArr[1].equals("actor")) {
-				
-				AgentID idActor = new AgentID(cmdArr[2]);
-				 AgentID id = new AgentID(cmdArr[4]);
-				String[] coords = cmdArr[6].split("*'/");
-				Latitude latitude = new Latitude(Integer.valueOf(coords[0]), Integer.valueOf(coords[1]), Double.valueOf(coords[2]));
-				
-				Longitude longitude = new Longitude(Integer.valueOf(coords[3]), Integer.valueOf(coords[4]), Double.valueOf(coords[5]));
-				
-				Altitude altitude = new Altitude(Double.valueOf(coords[6]));
-
-				CoordinateWorld3D position = new CoordinateWorld3D(latitude, longitude, altitude); 
-				
-				//TODO do i need to limit course to 360 degrees = 0?
-				Course course = new Course(Double.valueOf(cmdArr[11]));
-				
-				Groundspeed speed = new Groundspeed(Double.valueOf(cmdArr[14]));
-
-				cmdActor = new CommandActorCreateActor(managers, text, idActor, id, position, course, speed);
-			}
-
+			default: break;
+				}	
+				 //end if statement 
+							
 		} catch (Exception e) {
 			throw new RuntimeException("Invalid Command");
 		}
-
+		
 		return cmdActor;
+	
 	}
 }

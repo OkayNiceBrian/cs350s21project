@@ -1,4 +1,4 @@
-package cs350s21project;
+package cs350s21project.cli;
 
 import cs350s21project.controller.CommandManagers;
 import cs350s21project.controller.command.sensor.A_CommandSensor;
@@ -156,7 +156,7 @@ public class CommandSensorFactory {
 			}
 		}
 	}catch (Exception e) {
-			throw new RuntimeException("Invalid Command");
+			throw new RuntimeException("Invalid Command in sensor");
 			
 	}
 	return cmdSensor;
