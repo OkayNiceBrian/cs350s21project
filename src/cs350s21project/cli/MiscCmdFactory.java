@@ -109,13 +109,6 @@ public class MiscCmdFactory {
 				lon3sec = Integer.parseInt(lon3StrSec[0]);
 				////////////////////////////////////////////////////
 				
-				System.out.println(lat1hr+" "+lat1min+" "+lat1sec);//TESTING
-				System.out.println(lat2hr+" "+lat2min+" "+lat2sec);//TESTING
-				System.out.println(lat3hr+" "+lat3min+" "+lat3sec);//TESTING
-				System.out.println(lon1hr+" "+lon1min+" "+lon1sec);//TESTING
-				System.out.println(lon2hr+" "+lon2min+" "+lon2sec);//TESTING
-				System.out.println(lon3hr+" "+lon3min+" "+lat3sec);//TESTING
-				
 				
 				Latitude lat1 = new Latitude(lat1hr, lat1min ,lat1sec);//command[7]
 				Latitude lat2 = new Latitude(lat2hr, lat2min ,lat2sec);//command[8]
@@ -164,9 +157,6 @@ public class MiscCmdFactory {
 
 		String[] coords = command[4].split("/"); //Need data at index 0;
 		
-		for(int z=0; z<coords.length; z++) {
-			System.out.println(coords[z]);
-		}
 		String[] lat1StrHr = coords[0].split("\\*"); //Need data at index 0;
 		String[] lat1StrMin = lat1StrHr[1].split("\'"); //Need data at index 0;
 		String[] lat1StrSec = lat1StrMin[1].split("\"");//Need data at index 0;
@@ -183,8 +173,6 @@ public class MiscCmdFactory {
 		lon1min = Integer.parseInt(lon1StrMin[0]);
 		lon1sec = Integer.parseInt(lon1StrSec[0]);
 		
-		System.out.println(lat1hr+" "+lat1min+" "+lat1sec);//TESTING
-		System.out.println(lon1hr+" "+lon1min+" "+lon1sec);//TESTING
 		
 		Latitude lat1 = new Latitude(lat1hr, lat1min ,lat1sec);
 		Longitude lon1 = new Longitude(lon1hr, lon1min, lon1sec);
