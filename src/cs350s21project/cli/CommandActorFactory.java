@@ -1,4 +1,4 @@
-package cs350s21project;
+package cs350s21project.cli;
 
 import java.awt.List;
 
