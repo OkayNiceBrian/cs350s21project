@@ -66,9 +66,8 @@ public class CommandInterpreter {
 			} catch (Exception e) {
 				throw new RuntimeException("Invalid command");
 			}
-			
-			System.out.println(builtCommand.toString());
-			// managers.schedule(builtCommand);
+
+			managers.schedule(builtCommand);
 		}
 	}
 }
