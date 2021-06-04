@@ -14,7 +14,6 @@ public class CommandInterpreter {
 		String[] commands = command.split(";", 0);
 		
 		for (String commandString : commands) {
-			commandString = commandString.trim();
 			
 			// Handle comments
 			for (int i = 0; i < commandString.length(); i++) {
@@ -24,6 +23,10 @@ public class CommandInterpreter {
 			}
 			
 			commandString = commandString.trim();
+			
+			if (commandString.equals("")) {
+				break;
+			}
 			
 			// Create an array of words in the command
 			String[] cmdArr = commandString.split(" ", 0);
