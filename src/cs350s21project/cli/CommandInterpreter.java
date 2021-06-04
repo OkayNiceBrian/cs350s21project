@@ -37,9 +37,9 @@ public class CommandInterpreter {
 					switch(cmdArr[0]) {
 					case "define":{
 						switch(cmdArr[1]) {
-						case "ship": break;
+						case "ship": builtCommand = CommandActorFactory.getActorCommand(managers, command); break;
 						case "munition": builtCommand = CommandMunitionFactory.getCommandMunition(managers, commandString); break;
-						case "sensor": break;
+						case "sensor": builtCommand = CommandSensorFactory.getCommandSensor(managers, command); break;
 						default: throw new RuntimeException("Invalid command input!");
 						}
 						break;
@@ -47,7 +47,7 @@ public class CommandInterpreter {
 					case "create":{
 						switch(cmdArr[1]) {
 						case "window": builtCommand = MiscCmdFactory.buildMiscCmd(managers, commandString); break;
-						case "actor": break;
+						case "actor": builtCommand = CommandActorFactory.getActorCommand(managers, command); break;
 						default: throw new RuntimeException("Invalid command input!");
 						}
 						break;

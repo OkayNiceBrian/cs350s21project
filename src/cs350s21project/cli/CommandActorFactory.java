@@ -17,7 +17,7 @@ import cs350s21project.datatype.Longitude;
 
 public class CommandActorFactory {
 
-	public static A_CommandActor<?> getActorCommand(CommandManagers managers, String text, AgentID idActor) {
+	public static A_CommandActor<?> getActorCommand(CommandManagers managers, String text) {
 
 		String[] cmdArr = text.split(" ");
 		A_CommandActor<?> cmdActor = null;
@@ -28,15 +28,9 @@ public class CommandActorFactory {
 		    //         0     1   2    3    4          5       6           7        8          9 ...
 			if (cmdArr[0].equals("define") && cmdArr[1].equals("ship")) {
 			
-					 idActor = new AgentID(cmdArr[2]);
+					AgentID idActor = new AgentID(cmdArr[2]);
 					
 					
-					// TODO this may already be covered but, allow for multiple additions (for or while loop until ; ) as long as the getCommandMunition is functioning and catches the outliers, we shouldn't have a problem. 
-	
-					// Below should account for each of these
-					// AgentID type of munition
-					// AgentID fuzeID
-					// Time armingTime
 	
 					List idMunitions = new List();
 					//runs at least once I believe as we will have a weapon attached to each. 
@@ -69,7 +63,7 @@ public class CommandActorFactory {
 
 			else if (cmdArr[0].equals("create") && cmdArr[1].equals("actor")) {
 				
-				 idActor = new AgentID(cmdArr[2]);
+				AgentID idActor = new AgentID(cmdArr[2]);
 				 AgentID id = new AgentID(cmdArr[4]);
 				String[] coords = cmdArr[6].split("*'/");
 				Latitude latitude = new Latitude(Integer.valueOf(coords[0]), Integer.valueOf(coords[1]), Double.valueOf(coords[2]));
