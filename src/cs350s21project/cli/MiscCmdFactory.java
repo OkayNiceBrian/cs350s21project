@@ -108,8 +108,7 @@ public class MiscCmdFactory {
 				lon3min = Integer.parseInt(lon3StrMin[0]);
 				lon3sec = Integer.parseInt(lon3StrSec[0]);
 				////////////////////////////////////////////////////
-				
-				
+
 				Latitude lat1 = new Latitude(lat1hr, lat1min ,lat1sec);//command[7]
 				Latitude lat2 = new Latitude(lat2hr, lat2min ,lat2sec);//command[8]
 				Latitude lat3 = new Latitude(lat3hr, lat3min ,lat3sec);//command[9]
@@ -148,8 +147,6 @@ public class MiscCmdFactory {
 	}
 	public static CommandActorSetState forceCmd(CommandManagers managers, String cliIn) {
 		String[] command = cliIn.split(" ");
-		
-		//System.out.println(cliIn);//TEST
 
 		int lat1hr = 0, lat1min = 0; //Latitude variables
 		int lon1hr = 0, lon1min = 0;//Longitude variables
