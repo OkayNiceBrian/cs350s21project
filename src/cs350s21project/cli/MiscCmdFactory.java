@@ -42,7 +42,8 @@ public class MiscCmdFactory {
 			case "create":
 				AgentID createID = new AgentID(command[2]);
 				int size = Integer.valueOf(command[6]);
-				
+				String cliInClean = cliIn.replaceAll("[()]", "");
+				String[] commandClean = cliInClean.split(" ");
 				//command[] 7,8,9,10,11,12 are not broken into individual strings each containing a lat or lon.
 				
 				int lat1hr =0, lat1min =0;
@@ -54,7 +55,7 @@ public class MiscCmdFactory {
 				double lat1sec=0, lat2sec=0, lat3sec=0, lon1sec=0, lon2sec=0, lon3sec=0;
 				
 				/////////////////LATITUDE 1//////////////////////////
-				String[] lat1StrHr = command[7].split("\\*");
+				String[] lat1StrHr = commandClean[7].split("\\*");
 				String[] lat1StrMin = lat1StrHr[1].split("\'");
 				String[] lat1StrSec = lat1StrMin[1].split("\"");
 				
@@ -63,7 +64,7 @@ public class MiscCmdFactory {
 				lat1sec = Integer.parseInt(lat1StrSec[0]);
 				////////////////////////////////////////////////////
 				/////////////////LATITUDE 2/////////////////////////
-				String[] lat2StrHr = command[8].split("\\*");
+				String[] lat2StrHr = commandClean[8].split("\\*");
 				String[] lat2StrMin = lat2StrHr[1].split("\'");
 				String[] lat2StrSec = lat2StrMin[1].split("\"");
 				
@@ -72,7 +73,7 @@ public class MiscCmdFactory {
 				lat2sec = Integer.parseInt(lat2StrSec[0]);
 				////////////////////////////////////////////////////
 				/////////////////LATITUDE 3/////////////////////////
-				String[] lat3StrHr = command[9].split("\\*");
+				String[] lat3StrHr = commandClean[9].split("\\*");
 				String[] lat3StrMin = lat3StrHr[1].split("\'");
 				String[] lat3StrSec = lat3StrMin[1].split("\"");
 				
@@ -81,7 +82,7 @@ public class MiscCmdFactory {
 				lat3sec = Integer.parseInt(lat3StrSec[0]);
 				////////////////////////////////////////////////////
 				/////////////////LONGITUDE 1////////////////////////
-				String[] lon1StrHr = command[10].split("\\*");
+				String[] lon1StrHr = commandClean[10].split("\\*");
 				String[] lon1StrMin = lon1StrHr[1].split("\'");
 				String[] lon1StrSec = lon1StrMin[1].split("\"");
 				
@@ -90,7 +91,7 @@ public class MiscCmdFactory {
 				lon1sec = Integer.parseInt(lon1StrSec[0]);
 				////////////////////////////////////////////////////
 				/////////////////LONGITUDE 2////////////////////////
-				String[] lon2StrHr = command[11].split("\\*");
+				String[] lon2StrHr = commandClean[11].split("\\*");
 				String[] lon2StrMin = lon2StrHr[1].split("\'");
 				String[] lon2StrSec = lon2StrMin[1].split("\"");
 				
@@ -99,7 +100,7 @@ public class MiscCmdFactory {
 				lon2sec = Integer.parseInt(lon2StrSec[0]);
 				////////////////////////////////////////////////////
 				/////////////////LONGITUDE 3////////////////////////
-				String[] lon3StrHr = command[12].split("\\*");
+				String[] lon3StrHr = commandClean[12].split("\\*");
 				String[] lon3StrMin = lat1StrHr[1].split("\'");
 				String[] lon3StrSec = lat1StrMin[1].split("\"");
 				
